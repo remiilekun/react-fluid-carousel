@@ -21,7 +21,7 @@ const imgArray = [
   { id: img2, url: "http://img2" },
   { id: img3, url: "http://img3" },
   { id: img4, url: "http://img4" },
-  { id: img5, url: "http://img5" }
+  { id: img5, url: "http://img5" },
 ];
 ```
 
@@ -34,7 +34,7 @@ import Carousel from "react-fluid-carousel";
 export default ({ imgArray }) => {
   return (
     <Carousel>
-      {imgArray.map(img => (
+      {imgArray.map((img) => (
         <div key={img.id}>
           <img src={img.url} alt="description" />
         </div>
@@ -57,6 +57,9 @@ It will receive an object as props with the following - `{ disabled, onClick, ba
 `disabled` [boolean] - Will send true if there is a prev page to scroll to, or if the carousel is in mid-animation.
 `onClick` [function] - This has to be called by the custom component for prev/next functionality to work.
 `basicStyle` [object] - This is a styles object with values for `height` of the carousel, `top` margin of the carousel items
+`scaleX` [int] - This is the X axis scale size when you over on an item.
+`scaleY` [int] - This is the Y axis scale size when you over on an item.
+`showProgress` [bool] - This is used to determine if you want to show the dots or not (Default: false)
 
 `renderProgress` - This is another render prop based method which you can use to send customised progressunit. It will receive an object with the prop `enabled`, which can help you define the highlighted style of the progress unit. Click on this jumps to the respective page and is handled by the carousel by default.
 

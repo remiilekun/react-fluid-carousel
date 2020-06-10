@@ -1,15 +1,15 @@
 import React from "react";
+import NodeResolver from "react-node-resolver";
 import AnimatedList from "./animated-list";
 import ItemRenderer from "./itemRenderer";
-import NodeResolver from "react-node-resolver";
-import { padding, inline } from "./const";
 import { getChildStyles } from "./util";
 class Carousel extends React.Component {
   static defaultProps = {
+    scaleX: 1,
+    scaleY: 1,
+    showProgress: false,
     slidesToScroll: null,
     speed: 10,
-    scaleX: 1.2,
-    scaleY: 1.1
   };
 
   reactChildren = [];
@@ -35,7 +35,7 @@ class Carousel extends React.Component {
     top: null,
     hoveredItem: -1,
     scaledHeight: null,
-    scaledWidth: null
+    scaledWidth: null,
   };
   componentDidMount() {
     if (this.element) {
@@ -72,26 +72,26 @@ class Carousel extends React.Component {
         diffHeight,
         top: dimensions.top * this.props.scaleY,
         parentWidth,
-        fullWidth
+        fullWidth,
       });
     }
   }
-  getRef = element => {
+  getRef = (element) => {
     this.element = element;
   };
-  onMouseEnter = key => {
+  onMouseEnter = (key) => {
     this.setState({
-      hoveredItem: key
+      hoveredItem: key,
     });
   };
   onMouseLeave = () => {
     this.setState({
-      hoveredItem: -1
+      hoveredItem: -1,
     });
   };
-  progress = pageNo => {
+  progress = (pageNo) => {
     this.setState({
-      currentPage: pageNo
+      currentPage: pageNo,
     });
   };
   prev = () => {
@@ -122,16 +122,17 @@ class Carousel extends React.Component {
       pageItems,
       showCarousel,
       lastPage,
-      count
+      count,
     } = this;
     const {
       children,
-      renderPrev,
       renderNext,
+      renderPrev,
       renderProgress,
-      speed,
       scaleX,
-      scaleY
+      scaleY,
+      showProgress,
+      speed,
     } = props;
     const {
       height,
@@ -144,7 +145,7 @@ class Carousel extends React.Component {
       top,
       diffWidth,
       width,
-      diffHeight
+      diffHeight,
     } = state;
 
     if (!children || count < 0) {
@@ -169,7 +170,7 @@ class Carousel extends React.Component {
         onMouseEnter,
         onMouseLeave,
         diffHeight,
-        diffWidth
+        diffWidth,
       };
     });
     const prevButtonDisabled = currentPage === 1 || hoveredItem > -1;
@@ -181,7 +182,7 @@ class Carousel extends React.Component {
         : (currentPage - 1) * pageItems;
     return (
       <React.Fragment>
-        {showCarousel && (
+        {/* {showCarousel && showProgress && (
           <div style={{ textAlign: "center" }}>
             {pageArray.map((item, pageNo) => {
               const isEnabled = pageNo === currentPage - 1;
@@ -190,7 +191,7 @@ class Carousel extends React.Component {
                   style={{
                     cursor: "pointer",
                     display: "inline-block",
-                    marginRight: "5px"
+                    marginRight: "5px",
                   }}
                   onClick={() => this.progress(pageNo + 1)}
                 >
@@ -199,7 +200,7 @@ class Carousel extends React.Component {
               );
             })}
           </div>
-        )}
+        )} */}
         {showCarousel && (
           <React.Fragment>
             {renderPrev({
@@ -208,8 +209,8 @@ class Carousel extends React.Component {
               basicStyle: {
                 height: scaledHeight,
                 top: `${diffHeight}px`,
-                left: 0
-              }
+                left: 0,
+              },
             })}
           </React.Fragment>
         )}
@@ -234,8 +235,8 @@ class Carousel extends React.Component {
               basicStyle: {
                 height: scaledHeight,
                 right: 0,
-                top: `${diffHeight}px`
-              }
+                top: `${diffHeight}px`,
+              },
             })}
           </React.Fragment>
         )}
